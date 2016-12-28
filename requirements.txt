@@ -1,0 +1,6 @@
+python-slugify
+requests
+six
+google-api-python-client
+pytz
+javelot
