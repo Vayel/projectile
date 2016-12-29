@@ -3,8 +3,7 @@ import os
 import pytest
 from conftest import PROJECT_FOLDER
 
-from projectile import Project
-from projectile.project import ProjectExistsError
+from projectile import Project, ProjectExistsError
 
 
 def test_create_project(emulate_project_folder):
