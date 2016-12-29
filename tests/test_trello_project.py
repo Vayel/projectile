@@ -36,7 +36,7 @@ def create_project(url, trello):
     )
 
 
-def test_create_project(emulate_project_folder, trello):
+def test_create_project(project_folder, trello):
     p = create_project('https://trello.com/c/HJvMyd72/31-sdqsqd', trello)
     p.create_folder()
 

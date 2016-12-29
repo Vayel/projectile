@@ -8,7 +8,7 @@ PROJECT_FOLDER = os.path.join(HERE, 'projects')
 
 
 @pytest.fixture()
-def emulate_project_folder():
+def project_folder():
     try:
         shutil.rmtree(PROJECT_FOLDER)
     except FileNotFoundError:

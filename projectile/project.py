@@ -42,6 +42,11 @@ class Project:
             raise ProjectExistsError('Un dossier de projet porte déjà ce nom.')
 
 
+    def get_document_names(self):
+        folder = str(self.get_document_path())
+        return [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+
+
     def design(self):
         self.state = Project.DESIGNED
 
