@@ -1,2 +1,3 @@
 pytest
+odfpy
 -r requirements.txt
