@@ -4,12 +4,13 @@ from .project import Project
 
 __all__ = ('TrelloProject', 'NoProjectManagerError')
 
+
 # Exceptions
 class NoProjectManagerError(RuntimeError): pass
 
 
 class TrelloProject(Project):
-    def __init__(self, url, folder, trello, design_list_id, quality_member_card_url, quality_chief_card_url):
+    def __init__(self, url, trello, design_list_id, quality_member_card_url, quality_chief_card_url, *args, **kwargs):
         self.card_url = url
         self.design_list_id = design_list_id
         self.quality_member_card_url = quality_member_card_url
@@ -19,7 +20,7 @@ class TrelloProject(Project):
 
         self.read_card()
 
-        super().__init__(self.card['name'], folder)
+        super().__init__(self.card['name'], *args, **kwargs)
 
 
     def read_card(self):
@@ -48,6 +49,10 @@ class TrelloProject(Project):
             member_id = self.get_quality_chief_id()
         
         return member_id
+
+
+    def get_quality_member_mail(self):
+        return self.trello.get_mail_from_id(self.get_quality_member_id())
 
 
     def add_members(self, ids):

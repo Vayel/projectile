@@ -1,9 +1,9 @@
 import os
 
 import pytest
-from conftest import HERE, PROJECT_FOLDER
+from conftest import HERE
 
-from projectile import TrelloProject, NoProjectManagerError
+from projectile.project import TrelloProject, NoProjectManagerError
 from projectile.tools import Trello
 
 
@@ -21,23 +21,24 @@ def trello():
     return Trello(
         os.environ['TRELLO_API_KEY'],
         TRELLO_APP_SECRET_PATH,
-        'Projectile - Nsigma'
+        'Projectile - Nsigma (test)'
     )
 
 
-def create_project(url, trello):
+def create_project(url, trello, path=HERE):
     return TrelloProject(
         url,
-        PROJECT_FOLDER,
         trello,
         design_list_id=DESIGN_LIST_ID,
         quality_member_card_url=QUALITY_MEMBER_CARD_URL,
         quality_chief_card_url=QUALITY_CHIEF_CARD_URL,
+        path=path,
+        output_dirname='pdf',
     )
 
 
 def test_create_project(project_folder, trello):
-    p = create_project('https://trello.com/c/HJvMyd72/31-sdqsqd', trello)
+    p = create_project('https://trello.com/c/HJvMyd72/31-sdqsqd', trello, project_folder)
     p.create_folder()
 
 

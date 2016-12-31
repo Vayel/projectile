@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 
 from slugify import slugify
 
@@ -18,33 +17,31 @@ class Project:
     VALIDATED = 'validated' # By the quality section
 
 
-    def __init__(self, name, path, state='', document_dirname='documents', pdf_dirname='pdf'):
+    def __init__(self, name, path, output_dirname, reader=None, downloader=None, uploader=None, state='', document_dirname='documents'):
         self.name = name
         self.slug = slugify(self.name)
-        self.path = Path(path) / self.slug
+        self.path = os.path.join(path, self.slug)
+        self.reader = reader
+        self.downloader = downloader
+        self.uploader = uploader
         self.state = state or Project.DESIGNED
         self.document_dirname = document_dirname
-        self.pdf_dirname = pdf_dirname
+        self.output_dirname = output_dirname
 
 
     def get_document_path(self, fname=''):
-        return self.path / self.document_dirname / fname
+        return os.path.join(self.path, self.document_dirname, fname)
 
 
-    def get_pdf_path(self, fname=''):
-        return self.get_document_path() / self.pdf_dirname / fname      
+    def get_output_path(self, fname=''):
+        return os.path.join(self.get_document_path(), self.output_dirname, fname) 
 
 
     def create_folder(self):
         try:
-            os.makedirs(str(self.get_pdf_path()))
+            os.makedirs(self.get_output_path())
         except FileExistsError:
             raise ProjectExistsError('Un dossier de projet porte déjà ce nom.')
-
-
-    def get_document_names(self):
-        folder = str(self.get_document_path())
-        return [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
 
 
     def design(self):
