@@ -135,7 +135,7 @@ class Trello:
 
 
     def get_mail_from_id(self, id):
-        fullname = get_member(id=id)["fullName"]
+        fullname = self.get_member(id=id)["fullName"]
         return ".".join(slugify(el.lower()) for el in fullname.split(" ")) + "@nsigma.fr"
 
 
