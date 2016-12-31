@@ -16,6 +16,11 @@ class LibreOfficeDocumentReader(DocumentReader):
     def read_document(self, fname):
         call(['libreoffice', self.get_document_path(fname)])
  
+
+    def get_odt_names(self):
+        fnames = [f for f in self.get_document_fnames() if f.endswith('.odt')]
+        return [f[:-4] for f in fnames]
+
     
     def get_ods_name(self):
         try:
