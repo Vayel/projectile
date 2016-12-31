@@ -12,11 +12,11 @@ class DriveDocumentUploader(DocumentUploader):
         self.validated_dirname = validated_dirname
  
  
-    def create_folder(self):
+    def create_folder(self, doc_names):
         self.root_id = self.drive.create_folder(self.root_dirname, [])
 
         # Create folder for each document
-        for doc in self.get_document_fnames():
+        for doc in names:
             folder_name = os.path.splitext(doc)[0]
             folder_id = self.drive.create_folder(folder_name, [self.root_id])
             self.drive.create_folder(self.validated_dirname, [folder_id])
