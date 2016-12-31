@@ -16,7 +16,7 @@ class DriveDocumentUploader(DocumentUploader):
         self.root_id = self.drive.create_folder(self.root_dirname, [])
 
         # Create folder for each document
-        for doc in names:
+        for doc in doc_names:
             folder_name = os.path.splitext(doc)[0]
             folder_id = self.drive.create_folder(folder_name, [self.root_id])
             self.drive.create_folder(self.validated_dirname, [folder_id])
